@@ -1,0 +1,273 @@
+/* ==========================================================================
+   home.css — Estilos de la página de inicio (index.php)
+   --------------------------------------------------------------------------
+   - Fondo blanco fijo
+   - Navbar con dropdown condicional en "Cuenta"
+   - Sección hero a dos columnas (texto + ilustración)
+   - Botones primario (turquesa) y ghost
+   - Todo parametrizado con variables CSS (tokens)
+   ========================================================================== */
+
+/* ==============================
+   1) TOKENS / TEMA GLOBAL
+   Cambia estos valores para modificar el look & feel en TODO el home
+   ============================== */
+:root{
+  --bg:#ffffff;            /* Fondo de la página (BLANCO) */
+  --card:#ffffff;          /* Fondo de tarjetas / hero */
+  --text:#1f2937;          /* Texto principal (gris muy oscuro) */
+  --muted:#6b7280;         /* Texto secundario / descripciones */
+  --brand:#08b3bd;         /* Color principal (botón, enlaces activos) */
+  --brand-700:#06919a;     /* Variante para hover del principal */
+  --border:#e5e7eb;        /* Borde suave para tarjetas e inputs */
+  --shadow:0 12px 40px rgba(0,0,0,.06); /* Sombra general de tarjetas */
+  --radius:16px;           /* Radio de borde para tarjetas/botones */
+  --container:1100px;      /* Ancho máximo del contenido central */
+}
+
+/* ==============================
+   2) RESET BÁSICO / TIPOGRAFÍA
+   ============================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg); /* ← fondo blanco sólido */
+}
+a{
+  color:var(--brand);
+  text-decoration:none;
+}
+a:hover{
+  color:var(--brand-700);
+  text-decoration:underline;
+}
+
+/* ==============================
+   3) NAVBAR (header superior)
+   - Pegado arriba (sticky)
+   - Borde inferior suave
+   ============================== */
+.header{
+  position:sticky;      /* se queda arriba al hacer scroll */
+  top:0;
+  z-index:20;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:var(--container);
+  margin:0 auto;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  color:var(--brand);  /* color del “Petlife” */
+  letter-spacing:.2px;
+}
+.menu{
+  list-style:none;
+  display:flex;
+  gap:18px;
+  margin-left:auto;  /* empuja el menú a la derecha */
+  padding:0;
+}
+.menu a{ color:#374151 }      /* color neutro para links del menú */
+.menu a:hover{ color:var(--brand-700) }
+
+/* ===== Dropdown pequeño de “Cuenta”
+   - Se muestra/oculta desde JS: el contenedor tiene [hidden] por defecto
+   - `.menu-cuenta` es el <li> contenedor relativo
+   - `.dropdown` es el panel flotante
+   */
+.menu-cuenta{ position:relative }
+.dropdown{
+  position:absolute;
+  top:calc(100% + 8px);  /* separa 8px por debajo del link "Cuenta" */
+  right:0;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  min-width:200px;
+  padding:6px;
+}
+.dropdown a{
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#374151;
+}
+.dropdown a:hover{
+  background:#f3fbfc;  /* leve realce al pasar el mouse */
+}
+
+/* (Opcional) Flechita del dropdown.
+   Descomenta si quieres un triangulito encima del menú.
+
+.menu-cuenta .dropdown::before{
+  content:"";
+  position:absolute;
+  top:-8px; right:14px;
+  border:8px solid transparent;
+  border-bottom-color:#fff;           // color de fondo del dropdown
+  filter: drop-shadow(0 -1px 0 var(--border)); // línea sutil
+}
+*/
+
+/* ==============================
+   4) CONTENEDOR PRINCIPAL
+   - Ancho máximo y espaciado lateral
+   ============================== */
+.wrap{
+  max-width:var(--container);
+  margin:28px auto;
+  padding:0 16px;
+}
+
+/* ==============================
+   5) HERO
+   - Tarjeta grande con dos columnas:
+     izquierda (texto), derecha (ilustración)
+   - Cambia el grid en responsive
+   ============================== */
+.hero{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:28px;
+  display:grid;
+  grid-template-columns: 1.1fr .9fr; /* controla la proporción de columnas */
+  gap:24px;
+  align-items:center;
+}
+@media (max-width:960px){
+  .hero{ grid-template-columns:1fr } /* 1 columna en pantallas pequeñas */
+}
+
+/* --- Título principal del hero --- */
+.hero__title{
+  font-size:42px;        /* ajusta tamaño del título aquí */
+  line-height:1.1;
+  margin:0 0 10px;
+  font-weight:800;
+}
+.hero__title span{
+  color:#0f4f54;         /* énfasis (puedes igualarlo a --brand si prefieres) */
+}
+
+/* --- Párrafo descriptivo del hero --- */
+.hero__lead{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6;
+  margin:0 0 20px;
+  max-width:44ch;        /* controla el ancho de lectura del texto */
+}
+
+/* --- Contenedor de acciones (botones) --- */
+.hero__actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;        /* si no cabe, los botones saltan abajo */
+}
+
+/* ==============================
+   6) BOTONES
+   - .btn primario turquesa
+   - .btn.ghost estilo secundario
+   ============================== */
+.btn{
+  display:inline-block;
+  padding:12px 16px;
+  border-radius:12px;
+  border:0;
+  cursor:pointer;
+  background:var(--brand);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  transition: transform .02s ease, background .2s;
+}
+.btn:hover{ background:var(--brand-700) }
+.btn:active{ transform:scale(.99) }
+
+.btn.ghost{
+  background:#fff;
+  color:#374151;
+  border:1px solid var(--border);
+  font-weight:600;
+}
+.btn.ghost:hover{
+  border-color:var(--brand-700);
+  color:#0f4f54;
+}
+
+/* ==============================
+   7) ILUSTRACIÓN DEL HERO
+   - `.art__img` es un placeholder; quítalo cuando uses una imagen real
+   - Para una imagen real, usa la clase `.art__img--real` (debajo)
+   ============================== */
+.hero__art{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Placeholder con emoji (quítalo si usas imagen real) */
+.art__img{
+  width:min(420px, 88%);    /* limita el ancho máximo de la ilustración */
+  aspect-ratio:4/3;         /* relación de aspecto del recuadro */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e7f9fb;
+  border:1px dashed #9de2e7;
+  border-radius:20px;
+  font-size:80px;           /* tamaño del emoji */
+  color:#0e7c82;
+  user-select:none;
+}
+
+/* Si usas PNG/SVG real:
+   <img src="img/hero.png" alt="..." class="art__img--real">
+   - Elimina el placeholder o déjalo oculto
+*/
+.art__img--real{
+  display:block;
+  width:min(520px, 100%);   /* controla el máximo de la imagen real */
+  height:auto;
+  border-radius:20px;       /* opcional: redondea esquinas de la imagen */
+}
+
+/* ==============================
+   8) UTILIDADES / EXTRAS
+   ============================== */
+
+/* Marco gris claro alrededor del hero (opcional).
+   Envuelve tu <section class="hero"> dentro de un div.page-frame si te gusta
+   ese efecto de "marco" como en tu mockup.
+*/
+.page-frame{
+  background:#f5f7fb;
+  border-radius:20px;
+  padding:14px;
+}
+
+/* (Opcional) Clase accesible para contenido solo para lectores de pantalla */
+.sr-only{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);
+  white-space:nowrap;border:0;
+}

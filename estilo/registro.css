@@ -1,0 +1,205 @@
+/* ==========================================================================
+   registro.css — Estilos para la vista "Registrarse" (registrar_usuario.php)
+   --------------------------------------------------------------------------
+   - Fondo blanco fijo
+   - Navbar coherente con el sitio
+   - Tarjeta de formulario con sombras suaves
+   - Inputs con foco accesible
+   - Botón principal y textos auxiliares
+   - Las clases coinciden con registrar_usuario.php
+   ========================================================================== */
+
+/* ==============================
+   1) TOKENS / TEMA GLOBAL
+   Cambia estos valores para modificar rápidamente el look & feel
+   ============================== */
+:root{
+  --bg:#ffffff;            /* Fondo global (BLANCO) */
+  --card:#ffffff;          /* Fondo de tarjetas/formularios */
+  --text:#1f2937;          /* Texto principal */
+  --muted:#6b7280;         /* Texto secundario/ayudas */
+  --brand:#08b3bd;         /* Color principal (botón/enlaces) */
+  --brand-700:#06919a;     /* Variante hover */
+  --border:#e5e7eb;        /* Borde sutil */
+  --error:#dc2626;         /* Color de error */
+  --ok:#16a34a;            /* (si lo usas) Color de éxito */
+  --shadow:0 8px 30px rgba(0,0,0,.06); /* Sombra de tarjeta */
+  --radius:16px;           /* Radio general */
+  --container:1100px;      /* Ancho máximo del contenido */
+}
+
+/* ==============================
+   2) RESET BÁSICO / TIPOGRAFÍA
+   ============================== */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg); /* ⬅️ Mantener blanco sólido */
+}
+a{ color:var(--brand); text-decoration:none }
+a:hover{ color:var(--brand-700); text-decoration:underline }
+
+/* ==============================
+   3) NAVBAR (coherente con el sitio)
+   ============================== */
+.header{
+  position:sticky; top:0; z-index:10;
+  background:#fff; border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:var(--container); margin:0 auto; padding:12px 16px;
+  display:flex; align-items:center; gap:20px;
+}
+.logo{
+  display:flex; align-items:center; gap:8px;
+  font-weight:800; color:var(--brand); letter-spacing:.2px;
+}
+.menu{
+  list-style:none; display:flex; gap:18px;
+  margin-left:auto; padding:0;
+}
+.menu a{ color:#374151 }         /* color neutro para ítems del menú */
+.menu a:hover{ color:var(--brand-700) }
+
+/* ==============================
+   4) TOAST (feedback al completar)
+   ============================== */
+.toast{
+  max-width:var(--container);
+  margin:16px auto 0;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#ecfdf5;            /* verde muy claro */
+  border:1px solid #a7f3d0;      /* borde a juego */
+  color:#065f46;                 /* texto verde oscuro */
+}
+.toast[hidden]{ display:none }
+
+/* ==============================
+   5) LAYOUT PRINCIPAL
+   ============================== */
+.wrap{
+  max-width:var(--container);
+  margin:40px auto;
+  padding:0 16px;
+  display:grid;
+  grid-template-columns: 1.1fr .9fr; /* formulario + panel lateral */
+  gap:36px;
+  align-items:start;
+}
+@media (max-width: 900px){
+  .wrap{ grid-template-columns:1fr }
+}
+
+/* ==============================
+   6) TARJETA DEL FORMULARIO
+   ============================== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:24px 22px 20px;
+}
+.card__title{
+  font-size:22px; margin:4px 0 16px; font-weight:700;
+}
+
+/* ==============================
+   7) FORM GRID / CAMPOS
+   ============================== */
+.form-grid{
+  display:grid; grid-template-columns:1fr; gap:14px;
+}
+.field{ display:block }                  /* contenedor de cada campo */
+.field.two{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; /* ciudad + confirmación */
+}
+@media (max-width:520px){
+  .field.two{ grid-template-columns:1fr }
+}
+
+label{
+  font-size:14px; color:#374151; margin-bottom:6px; display:block;
+}
+
+/* Inputs coherentes (texto/email/password, etc.) */
+input, select, textarea{
+  width:100%; padding:12px;
+  border:1px solid var(--border); border-radius:10px;
+  font-size:15px; background:#fff; outline:none;
+  transition:border-color .2s, box-shadow .2s, background-color .2s;
+}
+input::placeholder, textarea::placeholder{ color:#9ca3af }
+input:focus, select:focus, textarea:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 4px rgba(8,179,189,.12); /* anillo de foco accesible */
+}
+
+/* Checkbox + label en línea (términos) */
+.row{ display:flex; align-items:center; gap:10px }
+
+/* Mensajes auxiliares */
+.hint{ font-size:12px; color:var(--muted); margin-top:4px }
+
+/* Errores bajo los campos (se muestran con JS) */
+.error{
+  font-size:12px; color:var(--error);
+  margin-top:6px; display:none;
+}
+.ok{ color:var(--ok) } /* si deseas mostrar confirmaciones cerca de un campo */
+
+/* ==============================
+   8) ACCIONES / BOTONES
+   ============================== */
+.btn{
+  display:inline-block; width:100%;
+  padding:12px 14px;
+  border:0; cursor:pointer;
+  border-radius:12px;
+  background:var(--brand); color:#fff;
+  font-weight:700; font-size:16px;
+  transition: transform .02s ease, background .2s;
+}
+.btn:hover{ background:var(--brand-700) }
+.btn:active{ transform:scale(.99) }
+
+.foot{ margin-top:10px; font-size:14px; color:var(--muted) }
+
+/* ==============================
+   9) PANEL LATERAL / PLACEHOLDER
+   (puedes poner aquí una ilustración SVG/PNG)
+   ============================== */
+.side{ display:flex; justify-content:center; align-items:flex-start }
+.hero{
+  width:min(440px, 90%);
+  aspect-ratio:1/1;
+  background:#e7f9fb;
+  border-radius:24px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px dashed #9de2e7;
+  padding:20px; text-align:center; color:#0e7c82;
+}
+.hero__placeholder{
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.hero__emoji{ font-size:80px; line-height:1 }
+
+/* ==============================
+   10) UTILIDADES / NOTAS
+   ============================== */
+/* Ajustes rápidos de espacios:
+   .wrap { margin:32px auto; }
+   .card { padding:20px 18px; }
+*/
+
+/* Botón no a 100% de ancho (si prefieres):
+   .btn { width:auto; padding-inline:18px; }
+*/
+
+/* Si quieres un foco aún más sutil:
+   input:focus { box-shadow:0 0 0 3px rgba(8,179,189,.10); }
+*/

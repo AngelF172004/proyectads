@@ -1,0 +1,177 @@
+/* ==========================================================================
+   mis_mascotas.css — Perfiles de mascotas (listado en tarjetas)
+   --------------------------------------------------------------------------
+   - Fondo blanco fijo
+   - Navbar + breadcrumbs
+   - Encabezado con CTA "Agregar mascota"
+   - Grid de tarjetas (foto, nombre, datos, acciones)
+   - Estado vacío cuando no hay mascotas
+   - Botones: primario, ghost y danger
+   ========================================================================== */
+
+/* ===================== 1) TOKENS / TEMA ===================== */
+:root{
+  --bg:#ffffff;           /* Fondo global (BLANCO) */
+  --card:#ffffff;         /* Fondo de tarjetas */
+  --text:#1f2937;         /* Texto principal */
+  --muted:#6b7280;        /* Texto secundario */
+  --brand:#08b3bd;        /* Color principal (botones/enlaces) */
+  --brand-700:#06919a;    /* Hover del principal */
+  --danger:#ef4444;       /* Botón eliminar */
+  --danger-700:#dc2626;   /* Hover del eliminar */
+  --border:#e5e7eb;       /* Borde suave */
+  --shadow:0 10px 34px rgba(0,0,0,.06); /* Sombra para tarjetas */
+  --radius:18px;          /* Radio general */
+  --container:1100px;     /* Ancho máximo del contenido */
+}
+
+/* ===================== 2) RESET / BASE ===================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg); /* ⬅️ blanco sólido */
+}
+a{color:var(--brand);text-decoration:none}
+a:hover{color:var(--brand-700);text-decoration:underline}
+
+/* ===================== 3) NAVBAR + BREADCRUMBS ===================== */
+.header{
+  position:sticky;top:0;z-index:10;
+  background:#fff;border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:var(--container);margin:0 auto;padding:12px 16px;
+  display:flex;align-items:center;gap:20px;
+}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--brand)}
+.menu{list-style:none;display:flex;gap:18px;margin-left:auto;padding:0}
+.menu a{color:#374151}
+.menu a:hover{color:var(--brand-700)}
+
+.crumbs{
+  max-width:var(--container);margin:0 auto;padding:8px 16px 12px;
+  display:flex;align-items:center;gap:8px;font-size:14px;color:#6b7280;
+}
+.crumbs a{color:#6b7280}
+.crumbs a:hover{color:#374151}
+
+/* ===================== 4) TOAST (feedback) ===================== */
+.toast{
+  max-width:var(--container);margin:14px auto 0;padding:12px 14px;border-radius:12px;
+  background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;
+}
+.toast[hidden]{display:none}
+
+/* ===================== 5) LAYOUT Y ENCABEZADO ===================== */
+.wrap{
+  max-width:var(--container);margin:28px auto;padding:0 16px;
+}
+.head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:18px;
+}
+.title{
+  margin:0;font-size:24px;font-weight:800;letter-spacing:.2px;
+}
+
+/* ===================== 6) BOTONES (genéricos) ===================== */
+.btn{
+  display:inline-block;padding:12px 14px;border:0;cursor:pointer;border-radius:12px;
+  background:var(--brand);color:#fff;font-weight:700;font-size:16px;
+  transition:transform .02s ease, background .2s;
+}
+.btn:hover{background:var(--brand-700)}
+.btn:active{transform:scale(.99)}
+.btn.ghost{
+  background:#fff;color:#374151;border:1px solid var(--border);font-weight:600;
+}
+.btn.ghost:hover{border-color:var(--brand);color:#0f4f54}
+.btn.danger{
+  background:var(--danger);
+}
+.btn.danger:hover{background:var(--danger-700)}
+
+/* ===================== 7) ESTADO VACÍO ===================== */
+.empty{
+  display:block;
+}
+.empty__card{
+  border:1px dashed var(--border);border-radius:18px;padding:26px;text-align:center;
+  background:#fafafa;
+}
+.empty__emoji{font-size:64px;line-height:1;margin-bottom:6px}
+.empty h2{margin:0 0 6px;font-size:20px}
+.empty p{margin:0 0 12px;color:var(--muted)}
+
+/* ===================== 8) GRID DE TARJETAS ===================== */
+/* Cambia columnas según el ancho. Ajusta los min() si quieres tarjetas más anchas. */
+.grid{
+  display:grid;gap:16px;margin-top:8px;
+  grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) );
+}
+
+/* ===================== 9) TARJETA DE MASCOTA ===================== */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;
+}
+
+/* Media (foto o placeholder) */
+.card__media{
+  width:100%;aspect-ratio:16/10;background:#f3f4f6; /* gris claro de respaldo */
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.card__media img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.card__placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:64px;color:#0e7c82;background:#e7f9fb;
+}
+
+/* Cuerpo con contenido */
+.card__body{
+  padding:14px 14px 12px;display:flex;flex-direction:column;gap:8px;
+}
+.card__title{
+  margin:0;font-size:18px;font-weight:800;letter-spacing:.2px;
+}
+.card__meta{
+  margin:0;color:var(--muted);font-size:14px;
+}
+
+/* Badges de datos rápidos (sexo, peso, esterilizado) */
+.card__badges{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;
+}
+.badge{
+  display:inline-block;font-size:12px;color:#374151;background:#f3fbfc;
+  border:1px solid var(--border);border-radius:999px;padding:6px 10px;
+}
+
+/* Acciones al pie de la tarjeta */
+.card__actions{
+  margin-top:6px;display:flex;gap:8px;justify-content:space-between;
+}
+.card__actions .btn{flex:1;text-align:center}
+
+/* ===================== 10) RESPONSIVE FINO ===================== */
+@media (max-width:520px){
+  .title{font-size:22px}
+  .btn{font-size:15px}
+}
+
+/* ===================== 11) UTILIDADES ===================== */
+/* Suaviza el scroll al abrir/cerrar toasts o al eliminar tarjetas */
+html{scroll-behavior:smooth}
+
+/* (Opcional) Si quieres que las imágenes tengan esquinas redondeadas:
+.card__media img{ border-bottom-left-radius:inherit; border-bottom-right-radius:inherit }
+*/
+
+/* (Opcional) Afinar contraste de las tarjetas:
+.card{ border-color:#dde2e7 }
+*/
